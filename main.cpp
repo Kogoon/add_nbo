@@ -4,20 +4,25 @@
 #include <stdlib.h> // for uint8_t
 #include <stdio.h> // for printf
 
-void usage() {
+void usage() { //
     printf("syntax : add_nbo <file1> <file2>\n");
     printf("sample : add_nbo a.bin c.bin\n");
 }
 
 uint32_t add_nbo(char *argv) {
+
     FILE *F;
-    uint32_t buf1;
+    uint32_t buf;
+
     F = fopen(argv, "r");
+
     if(F != NULL) {
-        fread(&buf1, sizeof(buf1), 1, F);
-        buf1 = ntohl(buf1);
-        fclose(F);
-        return buf1;
+
+        fread(&buf, sizeof(buf), 1, F);
+        buf = ntohl(buf);
+        fclose(F); //open and close
+        return buf;
+
     } else {
         printf("Open File Error!!\n");
         return 0;
@@ -26,11 +31,11 @@ uint32_t add_nbo(char *argv) {
     return 0;
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) { //argv[0] = add_nbo(main)
     // printf("begin\n");
 
     // FILE *F;
-    uint32_t buf[2];
+    uint32_t buf[2]; //32bit - 4byte unsigned
     buf[0] = add_nbo(argv[1]);
     buf[1] = add_nbo(argv[2]);
     if (argc != 3) {
