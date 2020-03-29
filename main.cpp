@@ -25,7 +25,7 @@ uint32_t add_nbo(char *argv) {
 
     } else { //empty file
         printf("Open File Error!!\n");
-        return 0;
+        return -1; //Error
     }
 
     return 0;
@@ -40,7 +40,7 @@ int main(int argc, char** argv) { //argv[0] = add_nbo(main)
     buf[1] = add_nbo(argv[2]);
     if (argc != 3) {
         usage();
-        return 0;
+        return -1; //Error
     }
     uint32_t sum = buf[0] + buf[1];
 
