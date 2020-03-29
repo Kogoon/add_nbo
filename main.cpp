@@ -9,12 +9,12 @@ void usage() { // Professor gil
     printf("sample : add_nbo a.bin c.bin\n");
 }
 
-uint32_t add_nbo(char *argv) {
+uint32_t add_nbo(char *file_name) {
 
     FILE *F;
     uint32_t buf;
 
-    F = fopen(argv, "r"); //read
+    F = fopen(file_name, "r"); //read
 
     if(F != NULL) { //Not empty file.
 
@@ -32,7 +32,7 @@ uint32_t add_nbo(char *argv) {
 int main(int argc, char** argv) { //argv[0] = add_nbo(main)
                                   //argv[1] = thousand
                                   //argv[2] = five-hundred
-    // printf("begin\n");
+    //printf("begin\n");
     if (argc != 3) {
         usage();
         return -1; //Error
