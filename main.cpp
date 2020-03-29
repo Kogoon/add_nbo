@@ -4,7 +4,7 @@
 #include <stdlib.h> // for uint8_t
 #include <stdio.h> // for printf
 
-void usage() { // Professor
+void usage() { // Professor gil
     printf("syntax : add_nbo <file1> <file2>\n");
     printf("sample : add_nbo a.bin c.bin\n");
 }
@@ -25,25 +25,23 @@ uint32_t add_nbo(char *argv) {
 
     } else { //empty file
         printf("Open File Error!!\n");
-        return -1; //Error
+        return 0;
     }
-
-    return 0;
 }
 
 int main(int argc, char** argv) { //argv[0] = add_nbo(main)
                                   //argv[1] = thousand
                                   //argv[2] = five-hundred
     // printf("begin\n");
+    if (argc != 3) {
+        usage();
+        return -1; //Error
+    }
 
     // FILE *F;
     uint32_t buf[2]; //uint32_t : 32bit - 4byte unsigned
     buf[0] = add_nbo(argv[1]);
     buf[1] = add_nbo(argv[2]);
-    if (argc != 3) {
-        usage();
-        return -1; //Error
-    }
     uint32_t sum = buf[0] + buf[1];
 
     // printf 1000(thousand) + 500(five-hundred) = 1500(sum) -> result
