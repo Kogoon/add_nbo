@@ -14,16 +14,16 @@ uint32_t add_nbo(char *argv) {
     FILE *F;
     uint32_t buf;
 
-    F = fopen(argv, "r");
+    F = fopen(argv, "r"); //read
 
-    if(F != NULL) {
+    if(F != NULL) { //Not empty file.
 
         fread(&buf, sizeof(buf), 1, F);
         buf = ntohl(buf);
         fclose(F); //open and close
         return buf;
 
-    } else {
+    } else { //empty file
         printf("Open File Error!!\n");
         return 0;
     }
@@ -45,8 +45,12 @@ int main(int argc, char** argv) { //argv[0] = add_nbo(main)
     uint32_t sum = buf[0] + buf[1];
 
     // printf 1000(thousand) + 500(five-hundred) = 1500(sum) -> result
-    // ex) 1000(0x3e8) + 5000(0x1f4) = 1500(0x5dc)
-    printf("1000(0x%x) + 500(0x%x) = 1500(0x%x)\n", buf[0], buf[1], sum);
+    // ex) 1000(0x3e8) + 500(0x1f4) = 1500(0x5dc)
+    //printf("1000(0x%x) + 500(0x%x) = 1500(0x%x)\n", buf[0], buf[1], sum);
+    // 3e8 -> 1000, 1f4 -> 500
+
+    printf("%d(0x%x) + %d(0x%x) = %d(0x%x)\n", buf[0], buf[0], buf[1], buf[1], sum, sum);
+
     // printf("end\n");
 
     return 0;
