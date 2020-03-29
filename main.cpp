@@ -4,7 +4,7 @@
 #include <stdlib.h> // for uint8_t
 #include <stdio.h> // for printf
 
-void usage() { //
+void usage() { // Professor
     printf("syntax : add_nbo <file1> <file2>\n");
     printf("sample : add_nbo a.bin c.bin\n");
 }
@@ -18,8 +18,8 @@ uint32_t add_nbo(char *argv) {
 
     if(F != NULL) { //Not empty file.
 
-        fread(&buf, sizeof(buf), 1, F);
-        buf = ntohl(buf);
+        fread(&buf, sizeof(buf), 1, F); //fread(memory addr, size, count, file);
+        buf = ntohl(buf); //little endian -> network byte array(big endian)
         fclose(F); //open and close
         return buf;
 
@@ -32,10 +32,12 @@ uint32_t add_nbo(char *argv) {
 }
 
 int main(int argc, char** argv) { //argv[0] = add_nbo(main)
+                                  //argv[1] = thousand
+                                  //argv[2] = five-hundred
     // printf("begin\n");
 
     // FILE *F;
-    uint32_t buf[2]; //32bit - 4byte unsigned
+    uint32_t buf[2]; //uint32_t : 32bit - 4byte unsigned
     buf[0] = add_nbo(argv[1]);
     buf[1] = add_nbo(argv[2]);
     if (argc != 3) {
