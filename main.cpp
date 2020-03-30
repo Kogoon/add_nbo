@@ -17,15 +17,15 @@ uint32_t add_nbo(char *file_name) {
     F = fopen(file_name, "r"); //read
 
     if(F != NULL) { //Not empty file.
-
         fread(&buf, sizeof(buf), 1, F); //fread(memory addr, size, count, file);
+        // if read fail...
         buf = ntohl(buf); //little endian -> network byte array(big endian)
         fclose(F); //open and close
         return buf;
-
     } else { //empty file
         printf("Open File Error!!\n");
         return 0;
+        // return 0.. input \x00, ... can you find the diff?
     }
 }
 
@@ -40,6 +40,7 @@ int main(int argc, char** argv) { //argv[0] = add_nbo(main)
 
     // FILE *F;
     uint32_t buf[2]; //uint32_t : 32bit - 4byte unsigned
+    // no need using buffer.
     buf[0] = add_nbo(argv[1]);
     buf[1] = add_nbo(argv[2]);
     uint32_t sum = buf[0] + buf[1];
